@@ -1,0 +1,38 @@
+# Pseudo-code: a method that takes an array of integers, and returns a new array
+with every other element  #
+
+# Casual #
+
+Given a collection of integers
+
+Iterate through the collection one by one
+  - save a new collection as empty
+  - for each iteration, check if the current iteration is an even or odd iteration
+  - if the current iteration is an even iteration
+    - move to the next iteration
+  - otherwise
+    - add the current value to the end of the new collection
+
+After iterating through the collection, return the new collection
+
+-------------------------------------------------------------
+
+# Formal #
+
+START
+
+# Given a collection of integers called "numbers"
+
+SET iterator = 1
+SET new_collection = empty
+
+WHILE iterator < length of numbers
+  IF iterator = an even number
+    go to the next iteration
+  ELSE
+    add the value within number at space "iterator - 1" to new_collection
+  SET iterator = iterator + 1
+
+PRINT new_collection
+
+END

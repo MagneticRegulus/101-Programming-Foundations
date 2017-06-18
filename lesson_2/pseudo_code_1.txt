@@ -1,0 +1,22 @@
+# Pseudo-code: a method that returns the sum of 2 integers #
+
+# Casual #
+
+Given two integers
+
+ - Take the first value and add the second value to it
+
+Return the result
+
+-------------------------------------------------------------
+
+# Formal #
+
+START
+
+# Given two integers called integer1 and integer2
+
+SET result = integer1 + integer2
+PRINT result
+
+END

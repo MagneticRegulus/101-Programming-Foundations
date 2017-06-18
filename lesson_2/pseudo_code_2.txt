@@ -1,0 +1,33 @@
+# Pseudo-code: a method that takes an array of strings, and returns a string that
+is all those strings concatenated together  #
+
+# Casual #
+
+Given a collection of strings
+
+Iterate through the collection one by one
+ - save the first value as the starting value
+ - for each iteration, reassign the saved value as itself plus the current value
+
+After iterating through the collection, return the saved value
+
+
+-------------------------------------------------------------
+
+# Formal #
+
+START
+
+# Given a collection of strings called "words"
+
+SET iterator = 1
+SET saved_word = value within the words collection at space 1
+
+WHILE iterator < length of words
+  SET iterator = iterator + 1
+  SET current_word = value within words collection at space "iterator"
+  SET saved_word = saved_word + current_word
+
+PRINT saved_word
+
+END
