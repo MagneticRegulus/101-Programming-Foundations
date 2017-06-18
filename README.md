@@ -20,9 +20,9 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 9. Rubocop - completed June 18, 2017
 10.	Walk-through: Refactoring Calculator - completed June 18, 2017
 11.	Rubocop Calculator - completed June 18, 2017
+12.	Debugging - completed June 18, 2017
+13.	Assignment: Calculator Bonus Features - in progress June 18, 2017
 
-12.	Debugging - Not completed
-13.	Assignment: Calculator Bonus Features - Not completed
 14.	Assignment: Mortgage / Car Loan Calculator - Not completed
 15.	Coding Tips - Not completed
 16.	Variable Scope - Not completed
