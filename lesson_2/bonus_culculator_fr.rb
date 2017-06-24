@@ -1,4 +1,4 @@
-LANGUAGE = 'en' # English Version 
+LANGUAGE = 'fr' # French Version
 
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')

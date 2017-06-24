@@ -1,0 +1,111 @@
+Take everything you've learned so far and build a mortgage calculator (or car payment
+calculator -- it's the same thing).
+
+You'll need three pieces of information:
+
+    the loan amount
+    the Annual Percentage Rate (APR)
+    the loan duration
+
+From the above, you'll need to calculate the following two things:
+
+    monthly interest rate
+    loan duration in months
+
+You can use the following formula:
+
+m = p * (j / (1 - (1 + j)**(-n)))
+
+    m = monthly payment
+    p = loan amount
+    j = monthly interest rate
+    n = loan duration in months
+
+### Notes ###
+
+Welcome the user to the progamme
+request their name and validate
+  its not nil
+ask for loan information
+  request the total loan amount in $$$
+    validate
+      its not empty
+      its not zero
+      its not negative
+  request the APR in a whole number (5% not 0.05)
+    validate
+      its not empty
+      its not zero
+      its not negative
+    confirm its the rate the user wanted
+        if not, request again
+  request the loan duration in years
+    validate
+      its not empty
+      its not zero
+      its not negative
+  calculate (annual interest rate / 12) / 100 = monthly interest rate
+  calculate loan duration in years * 12 = loan duration in months
+  calculate monthly payment = total loan amount * (monthly interest rate / (1 - (1 + mir)**(-1 * ld in months)))
+  show monthly payment in $$$
+  ask if user would like to recalculate the loan
+    if yes, go to request total loan amount
+Say goodbye to user
+
+
+-------------------------------------------------------------
+
+START
+
+PRINT Welcome message
+WHILE - name loop
+  GET User name
+  IF empty?
+    PRINT error message
+  ELSE
+    break loop
+PRINT addition welcome message w/ user name
+WHILE - loan loop
+  SET loan amount = nil
+  SET monthly interest rate = nil
+  SET loan duration in months = nil
+  WHILE - total loan $$$ loop
+    IF number?
+      SET $$$ to float
+      break loop
+    ELSE
+      PRINT error message
+  WHILE - annual interest loop
+    IF number?
+      PRINT rate confirmation (y/n)?
+      IF answer.downcase.start_with?(y) [ next unless starts with y?]
+        SET monthly interest = (APR / 12) / 100
+        break loop
+      ELSE
+        next
+    ELSE
+      PRINT error message
+  WHILE - duration in years loop
+    IF number?
+      SET duartion in months = years to float * 12
+      break
+    ELSE
+      PRINT error message
+  PRINT monthly payment = total loan amount * (monthly interest rate / (1 - (1 + mir)**(-1 * ld in months)))
+  PRINT would you like to recalculate your loan?
+    break unless answer starts with y?
+PRINT goodbye message
+
+-----------------------------------------------------------------------------
+
+methods
+
+prompt ( add => )
+integer?
+float?
+number?
+continue? (start with y?)
+
+later -
+
+messages (for YAML)

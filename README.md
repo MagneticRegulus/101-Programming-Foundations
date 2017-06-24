@@ -8,22 +8,24 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 
 ### Lesson 2: Small Programs
 
-1. Introduction - completed prior to June 18, 2017
-2. Ruby Style - completed prior to June 18, 2017
-3. Lecture: Kickoff - completed prior to June 18, 2017
-4. Set up a new directory for this lesson - completed prior to June 18, 2017
-5. A Note on Style - completed prior to June 18, 2017
-6. Walk-through: Calculator - completed prior to June 18, 2017
-7. Pseudo-Code - completed prior to June 18, 2017
-8. Flowchart - completed prior to June 18, 2017
+1. Introduction - prior to 18/06/2017
+2. Ruby Style - prior to 18/06/2017
+3. Lecture: Kickoff - prior to 18/06/2017
+4. Set up a new directory for this lesson - prior to 18/06/2017
+5. A Note on Style - prior to 18/06/2017
+6. Walk-through: Calculator - prior to 18/06/2017
+7. Pseudo-Code - prior to 18/06/2017
+8. Flowchart - prior to 18/06/2017
 
-9. Rubocop - completed June 18, 2017
-10.	Walk-through: Refactoring Calculator - completed June 18, 2017
-11.	Rubocop Calculator - completed June 18, 2017
-12.	Debugging - completed June 18, 2017
-13.	Assignment: Calculator Bonus Features - in progress June 18, 2017
+9. Rubocop - 18/06/2017
+10.	Walk-through: Refactoring Calculator - 18/06/2017
+11.	Rubocop Calculator - 18/06/2017
+12.	Debugging - 18/06/2017
 
-14.	Assignment: Mortgage / Car Loan Calculator - Not completed
+13.	Assignment: Calculator Bonus Features - 21/06/2017
+
+14.	Assignment: Mortgage / Car Loan Calculator - 24/06/2017
+
 15.	Coding Tips - Not completed
 16.	Variable Scope - Not completed
 17.	More Variable Scope - Not completed

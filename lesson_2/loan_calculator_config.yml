@@ -1,0 +1,14 @@
+en:
+  welcome: "Welcome to the Monthly Loan Repayment calculator. Enter your name:"
+  valid_name: "Please enter a valid name:"
+  display_name: "Hi"
+  about: "By entering your desired\n1. Loan Amount\n2. Annual Interest Rate\n3. Repayment Duration in Years\nI will calculate your monthly repayments."
+  loan: "How much would you like to borrow?"
+  valid_amount: "Please enter a valid amount."
+  interest: "What percentage of interest are you willing to pay each year? (E.g. 7.5 not 0.075)"
+  confirm_interest: "Are you sure you want to pay"
+  years: "Over how many years would you like to repay the loan?"
+  repayment_amount: "Your monthly repayment amount is..."
+  calculate_again: "Would you like to recalculate your monthly repayments,"
+  goodbye: "Thank you for using the Monthly Loan Repayment Calculator. Bye!"
+# Other languages
