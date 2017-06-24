@@ -69,7 +69,7 @@ loop do # main calculation loop
     prompt(messages('interest')) # 'interest'
     yearly_interest = gets.chomp
     if number?(yearly_interest)
-      prompt("#{messages('confirm_interest')} #{yearly_interest}%?") # 'confirm_interest'
+      prompt("#{messages('confirm_interest')} #{yearly_interest}%? (y/n)") # 'confirm_interest'
       answer = gets.chomp
       next unless continue?(answer)
       monthly_interest = (yearly_interest.to_f / 12) / 100
