@@ -26,15 +26,19 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 
 14.	Assignment: Mortgage / Car Loan Calculator - 24/06/2017
 
-15.	Coding Tips - Not completed
-16.	Variable Scope - Not completed
-17.	More Variable Scope - Not completed
-18.	Pass by Reference vs Pass by Value - Not completed
-19.	Walk-through: Rock Paper Scissors - Not completed
-20.	Rubocop Rock Paper Scissors - Not completed
-21.	Coding Tips 2 - Not completed
-22.	Assignment: RPS Bonus Features - Not completed
-23.	Summary - Not completed
+15.	Coding Tips - 28/06/2017
+16.	Variable Scope - 28/06/2017
+
+17.	More Variable Scope - 02/07/2017
+18.	Pass by Reference vs Pass by Value - 02/07/2017
+
+19.	Walk-through: Rock Paper Scissors - 05/07/2017
+20.	Rubocop Rock Paper Scissors - 05/07/2017
+21.	Coding Tips 2 - 05/07/2017
+
+22.	Assignment: RPS Bonus Features - 08/07/2017
+23.	Summary - 08/07/2017
+
 24.	Quiz - Not completed
 
 ### Lessons 3 - 6: Not started
