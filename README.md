@@ -39,6 +39,17 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 22.	Assignment: RPS Bonus Features - 08/07/2017
 23.	Summary - 08/07/2017
 
-24.	Quiz - Not completed
+24.	Quiz - 09/07/2017
 
-### Lessons 3 - 6: Not started
+### Lesson 3: Practice Problems
+
+1. Introduction - 10/07/2017
+
+2. Practice Problems: Easy 1 - In progress 10/07/2017
+3. Practice Problems: Easy 2 - Not completed
+4. Practice Problems: Medium 1 - Not completed
+5. Practice Problems: Medium 2 - Not completed
+6. Practice Problems: Hard 1 - Not completed
+7. Summary - Not completed
+
+### Lessons 4 - 6: Not started
