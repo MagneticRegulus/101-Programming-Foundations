@@ -48,7 +48,7 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 2. Practice Problems: Easy 1 - 12/07/2017
 3. Practice Problems: Easy 2 - 12/07/2017
 
-4. Practice Problems: Medium 1 - Not completed
+4. Practice Problems: Medium 1 - In progress 12/07/2017
 5. Practice Problems: Medium 2 - Not completed
 6. Practice Problems: Hard 1 - Not completed
 7. Summary - Not completed
