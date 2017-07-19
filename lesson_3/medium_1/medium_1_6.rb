@@ -23,6 +23,7 @@ puts "My array looks like this now: #{my_array}"
 # rather than assigning the string (which does not mutate the parameter), I would
 # use a concat method (<<) at the string level.
 
+puts "mine"
 def append_rutabaga!(a_string_param, an_array_param)
   a_string_param << "rutabaga"
   an_array_param << "rutabaga"
@@ -37,11 +38,18 @@ puts "My array looks like this now: #{my_array}"
 
 # The name change and the concat method better explains to the programmer what
 # the method does, and also does it more consistently across the 2 functions of
-# the method. This can actually be written as one method instead:
+# the method. This can actually be written with one parameter instead:
 
+puts "mine"
 def append_rutabaga!(string_or_array)
   string_or_array << "rutabaga"
 end
+
+my_string = append_rutabaga!("pumpkins")
+my_array = append_rutabaga!(["pumpkins"])
+
+puts "My string looks like this now: #{my_string}"
+puts "My array looks like this now: #{my_array}"
 
 # Solution version:
 def not_so_tricky_method(a_string_param, an_array_param)
