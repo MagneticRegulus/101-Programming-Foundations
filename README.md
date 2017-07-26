@@ -53,4 +53,18 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 6. Practice Problems: Hard 1 - 19/07/2017
 7. Summary - 19/07/2017
 
-### Lessons 4 - 6: Not started
+### Lessons 4
+
+1. Introduction - 23/07/2017
+2. Collections Basics - 23/07/2017
+3. Looping - 26/07/2017
+4. Practice Looping - 26/07/2017
+5. Selection and Transformation
+6. Methods
+7. More Methods
+8. Practice Problems: Methods and More Methods
+9. Practice Problems: Additional Practice
+10. Summary
+11. Quiz
+
+### Lessons 5 - 6: Not started
