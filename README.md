@@ -73,7 +73,7 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 2. Sorting - 30/08/2017
 3. Nested Data Structures - 02/09/2017
 4. Working with Blocks - 06/09/2017
-5. Practice Problems: Sorting, Nested Collections and Working with Blocks
+5. Practice Problems: Sorting, Nested Collections and Working with Blocks - 09/09/17
 6. Summary
 7. Quiz
 
