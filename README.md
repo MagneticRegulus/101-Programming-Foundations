@@ -53,7 +53,7 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 6. Practice Problems: Hard 1 - 19/07/2017
 7. Summary - 19/07/2017
 
-### Lessons 4
+### Lesson 4
 
 1. Introduction - 23/07/2017
 2. Collections Basics - 23/07/2017
@@ -64,7 +64,17 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 7. More Methods - 03/08/2017
 8. Practice Problems: Methods and More Methods - 06/08/2017
 9. Practice Problems: Additional Practice - 06/08/2017
-10. Summary
-11. Quiz
+10. Summary - 10/08/2017
+11. Quiz - 13/08/2017
 
-### Lessons 5 - 6: Not started
+### Lesson 5
+
+1. Introduction - 30/08/2017
+2. Sorting - 30/08/2017
+3. Nested Data Structures - 02/09/2017
+4. Working with Blocks - 06/09/2017
+5. Practice Problems: Sorting, Nested Collections and Working with Blocks
+6. Summary
+7. Quiz
+
+### Lesson 6: Not started
