@@ -1013,3 +1013,315 @@ Ruby provides more methods which are useful when working with collections.
  - Know how to read the documentation in order to understand the method's return value, how it uses the block's return value (if it takes a block), and whether the method is destructive.
 
 ----------
+
+Lesson 5: Advanced Ruby Collections
+-----------------------------------------------------
+### 5.2 Sorting
+Another way to work with collections is to sort them into some kind of order. This is mostly performed on arrays because array indices render item order important. Strings don't have access to sorting methods. `Hash` objects can now be sorted (since Ruby 1.9), but there generally isn't a need to do this.
+
+#### What is sorting?
+> **sorting** - setting the order of items in a collection according to certain criteria.
+
+We need some kind of mechanism to arrange all the items in a collection into a particular order. These actions can be performed algorithmically via the use of fairly simple looping mechanisms. However, this code would have to be fairly complex. Ruby provides `#sort` and `#sort_by`; we don't need to understand their full implementation, but we do need to understand the way they apply criteria in order to sort.
+
+#### Comparison
+Sorting *compares* items in a collection with each other and orders them based on the result. When we call `Array#sort`, it can sort alphabetically *or* numerically even though it doesn't know what kind of objects the array holds. `#sort` uses another method to determine how to order the elements; `<=>`, sometimes called the spaceship operator. 
+
+#### The `<=>` Method
+
+Any object in a collection that we want to sort *must* implement a `<=>` method. This method performs *comparison* between two objects of the same type and returns `-1`, `0`, or `1` depending on whether the 1st object is less than, equal to, or greater than the 2nd. If two objects cannot be compared, `nil` is returned.
+
+```ruby
+2 <=> 1 # => 1
+1 <=> 2 # => -1
+2 <=> 2 # => 0
+'b' <=> 'a' # => 1
+'a' <=> 'b' # => -1
+'b' <=> 'b' # => 0
+1 <=> 'a' # => nil
+```
+
+If `<=>` returns `nil` to a sort, an argument error is thrown.
+
+```ruby
+['a', 1].sort # => ArgumentError
+```
+`#sort` is only concerned with the return value of `<=>`.
+
+You need to know:
+
+ 1. Does an object type implement a `<=>` method?
+ 2. If yes, what is the implementation for that object? (It will be different for each object type.
+
+#### `String#<=>`
+[Ruby Docs:](https://ruby-doc.org/core-2.3.1/String.html#method-i-3C-3D-3E)
+> **string <=> other_string → -1, 0, +1 or nil**
+> 
+> If the strings are of different lengths, and the strings are equal when compared up to the shortest length, then the longer string is considered greater than the shorter one.
+> 
+> <=> is the basis for the methods <, <=, >, >=, and between?, included from module Comparable. The method String#== does not use Comparable#==.
+
+#### The ASCII Table
+String order is determined by a character's position in the [ASCII Table](https://en.wikipedia.org/wiki/ASCII#Code_chart). Some examples of ASCIIbetical order:
+```ruby
+'A' <=> 'a' # => -1
+'!' <=> 'A' # => -1
+'b'.ord # => 98 (ASCII position)
+'}'.ord # => 125 ('b' comes before '}')
+```
+Some useful rules to remember rough ASCIIbetical order:
+
+ - Uppercase letters come before lowercase.
+ - Digits and (most) punctuation come before letters.
+ - The *extended* ASCII table (containing accents, etc.) comes after the main table.
+
+#### The `#sort` Method
+Calling this method on an array returns a new array of sorted items. We can also call `#sort` with a block to control how the items are sorted. The return value of the block must be `-1`, `0`, `1`, or `nil`.
+```ruby
+[2, 5, 3, 4, 1].sort do |a, b|
+  a <=> b
+end # => [1, 2, 3, 4, 5] (same as without the block)
+
+[2, 5, 3, 4, 1].sort do |a, b|
+  b <=> a
+end # => [5, 4, 3, 2, 1]
+
+[2, 5, 3, 4, 1].sort do |a, b|
+  puts "a is #{a} and b is #{b}."
+  a <=> b # must return -1, 0, 1, or nil
+end
+# a is 2 and b is 5
+# a is 4 and b is 1
+# a is 3 and b is 1
+# a is 3 and b is 4
+# a is 2 and b is 1
+# a is 2 and b is 3
+# a is 5 and b is 3
+# a is 5 and b is 4
+# => [1, 2, 3, 4, 5]
+```
+The output strings above should give some idea as to how complex the `#sort` method is. 
+
+In strings like `'cap'` and `'cape'`, the 1st three characters are the same but `'cape'` is longer. `'cape'` is considered "greater than" `'cap'`.
+
+Arrays are compared "element-wise" instead of "character-wise". An error can be thrown if two elements are different objects, but not all situations will throw the error as the methods might return an order before the objects are compared. 
+
+#### The `#sort_by` Method
+This method is similar to `#sort`. It's usually called with a block which determines how the items are compared.
+```ruby
+['cot', 'bed', 'mat'].sort_by do |word|
+  word[1]
+end # => ["mat", "bed", "cot"]
+```
+Here we are sorting using the character at index `1` of each string, so only the characters 'a', 'e', and 'o' are compared and the other characters are ignored entirely. 
+
+You can only use this method to sort hashes. Two arguments must be passed to the block, the key and the value. The last argument in the block determines what we sort by.
+```ruby
+people = {kate: 27, john: 25, mike: 18}
+people.sort_by do |name, age|
+  age
+end # => [[:mike, 18], [:john, 25], [:kate, 27]]
+```
+`#sort_by` always returns an array. By sorting on the names, we would be sorting symbols, which is effectively comparing the string version of the symbols. (Look at the `<=>` method for the object you want to sort to determine how it is carried out.)
+
+#### Other Comparison Methods
+> All in `Enumerable`:
+> **min** - returns the minimum valued object of enum
+> **max** - returns the objects with the maximum value
+> **minmax** - returns a 2-element array with the minimum and maximum values
+> **min_by** - returns the object with the minimum value based on a block
+> **max_by** - returns the object with the maximum value based on a block
+> **minmax_by** - returns a 2-element array with the minimum and maximum values based on a block
+
+#### Summary
+
+ - Sorting is complex to carry out algorithmically.
+ - Comparison is at the heart of sorting.
+ - Methods other than `#sort` and `#sort_by` also use `<=>`.
+
+### 5.3 Nested Data Structures
+#### Referencing Collection Elements
+`arr = [[1, 3], [2]]` - Each of the nested arrays have their own index, and each inner elements have a specific index. 
+
+![Sub-array indices](http://d1b1wr57ag5rdp.cloudfront.net/images/collections/nested-array-diagram.png)
+
+The inner elements can be called using chained methods:
+```ruby
+arr[0] # => [1, 3]
+arr[0][1] # => 3
+```
+
+#### Updating Collection Elements
+Using a destructive action to assign new values to the array elements can be done at inner and outer levels in a similar fashion:
+```ruby
+arr = [[1, 3], [2]]
+arr[1] = 'hi there'
+arr # => [[1, 3], 'hi there']
+
+arr = [[1, 3], [2]]
+arr[0][1] = 5
+arr # => [[1, 5], [2]]
+```
+In the example above, it looks like we've chained reference methods, but we have not.
+
+ - `arr[0]` - element reference; returns [1, 3]
+ - `[1] = 5` - element update; same as [1, 3][1] = 5
+
+Inserting elements into a nested array is similar to the examples above. First, the element array must be referenced, then the element appended.
+```ruby
+arr = [[1], [2]]
+arr[0] << 3
+arr # => [[1, 3], [2]]
+```
+The appended inner element can, of course, be any object, including another array.
+
+#### Other Nested Structures
+Hashes can also be bested within an array. 
+
+![Nested hashes in an array](http://d1b1wr57ag5rdp.cloudfront.net/images/collections/array-of-hashes.png)
+
+Adding new key-value pairs are very similar to appending new elements to inner array. First, the inner collection must be referenced then the new pair added.
+```ruby
+arr = [{a: 'ant'}, {b: 'bear'}]
+arr[0][:c] = 'cat'
+arr # => [{:a=>'ant', :c=>'cat'}, {:b=>'bear'}]
+```
+Arrays can hold any type of Ruby object. Here are some examples of how to retrieve more complex structures:
+```ruby
+arr = [['a', ['b']], { b: 'bear', c: 'cat' }, 'cab']
+
+arr[0]              # => ["a", ["b"]]
+arr[0][1][0]        # => "b"
+arr[1]              # => { :b => "bear", :c => "cat" }
+arr[1][:b]          # => "bear"
+arr[1][:b][0]       # => "b"
+arr[2][2]           # => "b"
+```
+
+#### Variable Reference for Nested Collections
+A confusing part of working with nested collections is when variables reference inner collections directly. 
+```ruby
+a = [1, 3]
+b = [2]
+arr = [a, b]
+arr # => [[1, 3], [2]]
+```
+When the local variables `a` and `b` are placed as elements in an array, it looks like the actual `Array` objects have themselves have been added to the outer array. (True to a certain extent.) What happens if `a` is modified?
+```ruby
+a[1] = 5
+arr # => [[1, 5], [2]]
+```
+`a` and `arr[0]` are still pointing to the same object:
+
+![Variable Reference - referencing the same object](http://d1b1wr57ag5rdp.cloudfront.net/images/collections/variables-as-pointers-1.png)
+
+What happens if the 1st array in `arr` is modified?
+```ruby
+arr[0][1] = 8
+arr # => [[1, 8], [2]]
+a # => [1, 8]
+```
+`a` and `arr[0]` are still pointing to the same object:
+
+![Variable Reference - still referencing the same object](http://d1b1wr57ag5rdp.cloudfront.net/images/collections/variables-as-pointers-2.png)
+
+#### Shallow Copy
+Ruby provides two methods that can copy objects, including collections: `#dup` and `#clone`. These methods create a *shallow copy*. Only the object that the method is called on is copied. If the object contains other objects, those objects will be *shared*. This has a major impact. This might not automatically fit in with what you would assume these methods *should* do.
+
+`#dup` allows objects within the copied object to be modified. `#clone` works the same way. Here are same examples of element modification:
+```ruby
+arr1 = ["a", "b", "c"]
+arr2 = arr1.dup
+arr2[1].upcase!
+arr2 # => ["a", "B", "c"]
+arr1 # => ["a", "B", "c"]
+
+arr1 = ["abc", "def"]
+arr2 = arr1.clone
+arr2[0].reverse!
+arr2 # => ["cba", "def"]
+arr1 # => ["cba", "def"]
+```
+`String#upcase!` and `String#reverse!` were called on the object *within* the array rather than the array itself. When using these methods, it's important to remember and understand what you want to modify, the collection or its elements. Here's an example of collection modification:
+```ruby
+arr1 = ["a", "b", "c"]
+arr2 = arr1.dup
+arr2.map! do |char| # Array method
+  char.upcase
+end
+arr1 # => ["a", "b", "c"]
+arr2 # => ["A", "B", "C"]
+```
+`Array#map` modifies the array by *replacing* each element of `arr2` with a new value. This leaves the original array untouched.
+
+#### Freezing Objects
+The main difference between `#dup` and `#clone` is that `#clone` preserves the frozen state of the object. In Ruby, only mutable objects can be frozen to prevent modification. Immutable objects (like integers and booleans) are already frozen.
+
+`#dup`'d frozen arrays, for example, can have new elements added. This is not true for `#clone`. Array *elements* can still be modified, however.
+```ruby
+arr1 = [1, 2, 3].freeze # has to be frozen first
+arr2 = arr1.dup
+arr3 = arr1.clone
+arr2 << 4 # works
+arr3 << 4 # RuntimeError
+
+arr = [[1], [2], [3]].freeze
+arr[2] << 4 # modifying element
+arr # => [[1], [2], [3, 4]]
+```
+You can use the `#frozen?` method to check if an object is frozen. 
+
+#### Deep Copy
+In Ruby, there's no built in way to create a deep copy or to deep freeze objects within objects. This functionality *can be* implemented. When working with collections, including nested collections, it is therefore important to know what level you are working at.
+
+### 5.4 Working With Blocks
+When evaluating code, ask the following questions:
+
+ - What is the type of action being performed (method call, block, conditional, etc.)?
+ - What is the objects that action is being performed on?
+ - What is the side-effect of that action (e.g. output or destructive action)?
+ - What is the return value of that action?
+ - Is the return value used by whatever instigated the action?
+
+#### Example 1:
+```ruby
+1| [[1, 2], [3, 4]].each do |arr|
+2|   puts arr.first
+3| end # 1 # 3 # => [[1, 2], [3, 4]]
+```
+| Ln | Action | Object | Side Effect | Return Val | Is it used? |
+| -- | ------ | ------ | ----------- | ---------- | ----------- |
+| 1 | method call (`#each`) | outer array | none | the calling object | no |
+| 1 - 3 | block execution | each sub-array | none | `nil` | no |
+| 2 | method call (`#first`) | each sub-array | none | element @ 0 index of sub-array | yes, used by `#puts` |
+| 2 | method call (`#puts`) | element @ 0 index of sub-array | outputs string representation of `Integer` | `nil` | yes, used to determine return value of the block |
+
+#### Example 2:
+```ruby
+1| [[1, 2], [3, 4]].map do |arr|
+2|   puts arr.first
+3| end # 1 # 3 # => [nil, nil]
+```
+| Ln | Action | Object | Side Effect | Return Val | Is it used? |
+| -- | ------ | ------ | ----------- | ---------- | ----------- |
+| 1 | method call (`#map`) | outer array | none | new array `[nil, nil]` | no |
+| 1 - 3 | block execution | each sub-array | none | `nil` | yes, used by `#map` for transformation |
+| 2 | method call (`#first`) | each sub-array | none | element @ 0 index of sub-array | yes, used by `#puts` |
+| 2 | method call (`#puts`) | element @ 0 index of sub-array | outputs string representation of `Integer` | `nil` | yes, used to determine return value of the block |
+
+#### Example 3 (my turn):
+```ruby
+1| [[1, 2], [3, 4]].map do |arr|
+2|   puts arr.first
+3|   arr.first
+4| end # 1 # 3 # => [1, 3]
+```
+| Ln | Action | Object | Side Effect | Return Val | Is it used? |
+| -- | ------ | ------ | ----------- | ---------- | ----------- |
+| 1 | method call (`#map`) | outer array | none | new array `[1, 3]` | no |
+| 1 - 4 | block execution | each sub-array | none | sub-array element @ 0 index | yes, used by `#map` for transformation |
+| 2 | method call (`#first`) | each sub-array | none | sub-array element @ 0 index | yes, used by `#puts` |
+| 2 | method call (`#puts`) | sub-array element @ 0 index | outputs string representation of `Integer` | `nil` | no |
+| 3 | method call (`#first`) | each sub-array | none | sub-array element @ 0 index | yes, used to determine the value of the block |
+
+#### Example 4:
