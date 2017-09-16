@@ -1325,3 +1325,113 @@ When evaluating code, ask the following questions:
 | 3 | method call (`#first`) | each sub-array | none | sub-array element @ 0 index | yes, used to determine the value of the block |
 
 #### Example 4:
+```ruby
+1| my_curr = [[18, 7], [3, 12]].each do |arr|
+2|   arr.each do |num|
+3|     if num > 5
+4|       puts num
+5|     end
+6|   end
+7| end # 18 # 7 # 12 # => [[18, 7], [3, 12]]
+```
+
+| Ln | Action | Object | Side Effect | Return Val | Is it used? |
+| -- | ------ | ------ | ----------- | ---------- | ----------- |
+| 1 | variable assignment | n/a | none | `[[18, 7], [3, 12]]` | no |
+| 1 | method call (`#each`) | [[18, 7], [3, 12]] | none | the calling object `[[18, 7], [3, 12]]` | yes, used by variable assignment to `my_arr` |
+| 1 - 7 | outer block execution | each sub-array | none | each sub-array | no |
+| 2 | method call (`#each`) | each sub-array | none | the calling object (current sub-array | yes, used to determine return value of outer block |
+| 2 - 6 | inner block execution | each current sub-array element | none | `nil` | no |
+| 3 | comparison (`>`) | each current sub-array element | none | Boolean | yes, if evaluated by `if` |
+| 3 - 5 | conditional (`if`) | each current sub-array element | none | `nil` | yes, used to determine the return value of inner block |
+| 4 | method call (`#puts`) | each current sub-array element | outputs a string representation of an `Integer` | `nil` | yes, to determine the return value of the inner block |
+
+There are 4 return values: the return values of both calls to `#each`,  and the return value of both blocks. `#each` ignores the return value of the *block* which can be different to the return value of `#each`.
+
+#### Example 5: 
+```ruby
+1| [[1, 2], [3, 4]].map do |arr|
+2|   arr.map do |num|
+3|     num * 2
+4|   end
+5| end # => [[2, 4], [6, 8]]
+```
+
+| Ln | Action | Object | Side Effect | Return Val | Is it used? |
+| -- | ------ | ------ | ----------- | ---------- | ----------- |
+| 1 | method call (`#map`) | the original array | none | new transformed array `[[2, 4], [6, 8]]` | no |
+| 1 - 5 | outer block execution | each sub-array | none | each transformed sub-array | yes, used by `#map` for transformation |
+| 2 | method call (`#map`) | each sub-array | none | new transformed sub-array | yes, determines outer block return value |
+| 2 - 4 | inner block execution | each sub-array element | none | an integer | yes, used by `#map` for transformation |
+| 3 | method call (`#*`) or `num * 2` | n/a | none | an integer | yes, determines the inner block return value |
+
+#### Example 6:
+```ruby
+1| [{a: 'ant', b: 'elephant'}, {c: 'cat'}].select do |hash|
+2|   hash.all? do |key, value|
+3|     value[0] == key.to_s
+4|   end
+5| end # => [{:c=>'cat'}]
+```
+
+ - **Line 1:** Method call (`#select`) on array object; returned value is a new array of selected hashes and is not used.
+ - **Lines 1-5:** Outer block execution on each hash element; returned value is each selected hash element which is used by `#select` for selection.
+ - **Line 2:** Method call `#all?` on each hash element; returned value is a Boolean which is used to determine the outer block's return value. 
+ - **Line 2-4:** Inner block execution on each key-value pair; returned value is a Boolean which is used by `#all?`.
+ - **Line 3:**
+	 - 1. Method call `#[]` on each value; return the 1st character string of the value's string object
+	 - 2. Method call `#to_s` on each key; returns a string representation of the key's symbol object
+	 - 3. Comparison `==` on each returned values of items 1 & 2; returns a Boolean which determines the inner block's returned value.
+
+#### Example 10:
+```ruby
+[[[1, 2], [3, 4]], [5, 6]].map do |arr|
+  arr.map do |el|
+    if el.to_s.size == 1
+      el + 1
+    else
+      el.map do |n|
+        n + 1
+      end
+    end
+  end
+end # => [[[2, 3], [4, 5]], [6, 7]]
+```
+
+The above example has uneven nested levels of arrays within the original array; we want to add 1 to each value without changing the original structure. We first need to access those values regardless of how many arrays they are nest in. We need to determine if the current element is an array or an integer (within the if/else/end lines).
+
+#### Mutating Collections While Iterating
+**Don't do this!**
+
+Since iteration is the basis of selection and transformation, that implies that you should not mutate the collection within those blocks. Pay extreme attention to destructive method calls.
+
+#### Summary
+Some things to remember:
+
+ - If at first code appears opaque of complex, take time to break it down step by step.
+ - If necessary, use some sort of systematic approach (such as the tabular method outlined in this assignment). 
+ - Figure out what is happening at each step, paying particular attention to:
+	 - the return value
+	 - any side effects
+ - Pay attention to the return values of all statements in your code, especially where implicit return values are being relied on.
+ - Make sure you have a clear understanding of the underlying concepts such as data structures, loops, iterative methods, and the blocks passed to them (go back over earlier assignments if necessary).
+ - Be clear about the method implementation of the iterative method(s) being used, especially:
+	 - What values are passed to the block
+	 - What the method does with the return value of the block
+ - If you are unclear about a method implementation, a good initial step is to refer to the Ruby Docs.
+
+### 5.6 Summary
+
+Some important points to remember:
+
+ - You should know how to reference items within nested collections in order to manipulate them.
+ - You should be aware when you make a shallow copy of a collection - the objects within are shared between the copy and the original.
+ - When working with blocks, especially when using nested collections:
+	 - Take time to break down and understand a collection's structure
+	 - Choose an appropriate method; be clear on its implementation and return value
+	 - Understand what is being returned by the various methods and blocks at each level
+	 - When iterating through nested collections, be particularly aware of the return value of the block and any side effects of the code within the block
+
+Being able to manipulate a collection of data is very often a necessary component of a solution to an overall coding problem. 
+
+----------
