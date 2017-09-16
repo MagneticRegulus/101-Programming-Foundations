@@ -82,7 +82,7 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 1. Introduction - 16/09/2017
 2. Updated Rubocop configuration - 16/09/2017
 3. Tic Tac Toe Problem Decomposition - 16/09/2017
-4. Walk-through: Tic Tac Toe
+4. Walk-through: Tic Tac Toe - 16/09/2017
 5. Rubocop Tic Tac Toe
 6. Assignment: TTT Bonus Features
 7. Assignment: Twenty-One
