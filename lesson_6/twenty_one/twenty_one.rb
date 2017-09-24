@@ -1,5 +1,3 @@
-require 'pry'
-
 PLAYERS = ['Player', 'Dealer']
 
 DECK = {
@@ -10,14 +8,30 @@ DECK = {
 }
 
 VALUES = {
-  2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10,
-  'jack'=>10, 'queen'=>10, 'king'=>10, 'ace'=>11
+  2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10,
+  'jack' => 10, 'queen' => 10, 'king' => 10, 'ace' => 11
 }
 
-POINTS_TO_WIN = 21
+WINNING_THRESHOLD = 21
+DEALER_THRESHOLD = 17
+CHAMP_THRESHOLD = 5
+QUIT_GAME = 'exit'
 
 def prompt(msg)
   puts "=> #{msg}"
+end
+
+def display_rules
+  system 'clear'
+  prompt("Welcome to #{WINNING_THRESHOLD}!")
+  puts ''
+  prompt('----------------------The Rules----------------------')
+  prompt("Be the closest player to #{WINNING_THRESHOLD} to win.")
+  prompt("Go over #{WINNING_THRESHOLD} points, and you bust.")
+  prompt("Face cards are 10 points. Aces are 1 or 11 points. " \
+         "The rest are face value.")
+  prompt("The first to #{CHAMP_THRESHOLD} wins is the champion.")
+  puts ''
 end
 
 def initialize_deck
@@ -47,7 +61,7 @@ end
 def player_hit_or_stay
   loop do
     answer = gets.chomp.downcase
-    if answer == 'hit' || answer == 'stay'
+    if answer == 'hit' || answer == 'stay' || answer == QUIT_GAME
       return answer
     else
       prompt("Invalid entry. Enter hit or stay.")
@@ -55,16 +69,22 @@ def player_hit_or_stay
   end
 end
 
+def initialize_hands(deck, player, dealer)
+  2.times { deal!(deck, player) }
+  2.times { deal!(deck, dealer) }
+end
+
 def count_points(deck, hand)
   hand.map { |card| deck[card] }.reduce(:+)
 end
 
-def bust?(hand, deck)
-  count_points(deck, hand) > POINTS_TO_WIN ? true : false
+def bust?(deck, hand)
+  count_points(deck, hand) > WINNING_THRESHOLD ? true : false
 end
 
-def reset_aces!(hand, deck)
-  until count_points(deck, hand) <= POINTS_TO_WIN || !deck.values.include?(11)
+def reset_aces!(deck, hand)
+  until count_points(deck, hand) <= WINNING_THRESHOLD ||
+        !deck.values.include?(11)
     aces = hand.select { |card| card.to_s.include?('ace') }
     break unless !aces.empty?
     aces.delete_if { |ace| deck[ace] == 1 }
@@ -73,68 +93,121 @@ def reset_aces!(hand, deck)
   end
 end
 
-# Reset card values & shuffle the deck
-cards = initialize_deck
-shuffled_cards = cards.keys.shuffle
-
-player_hand = []
-dealer_hand = []
-winner = ''
-
-2.times { deal!(shuffled_cards, player_hand) }
-2.times { deal!(shuffled_cards, dealer_hand) }
-
-prompt("The Dealer has #{dealer_hand.size} cards; one is #{dealer_hand.first}.")
-prompt("The Dealer has at least #{cards[dealer_hand.first]} points.")
-puts ''
-prompt("You have #{joinand(player_hand)}.")
-prompt("You have #{count_points(cards, player_hand)} points.")
-puts ''
-
-# Player's turn
-loop do
-  prompt("Hit or stay?")
-  choice = player_hit_or_stay
-  break if choice == 'stay'
-
-  deal!(shuffled_cards, player_hand)
-  reset_aces!(player_hand, cards)
-
-  winner = 'Dealer' if bust?(player_hand, cards)
-  break if PLAYERS.include?(winner)
-
-  prompt("You have #{joinand(player_hand)}.")
-  prompt("You have #{count_points(cards, player_hand)} points.")
+def display_player_hand(deck, hand)
+  prompt("You have #{joinand(hand)}.")
+  prompt("You have #{count_points(deck, hand)} points.")
+  prompt('You busted.') if bust?(deck, hand)
+  puts ''
 end
 
-# Dealer's turn
-loop do
-  break if PLAYERS.include?(winner) || count_points(cards, dealer_hand) >= 17
-  deal!(shuffled_cards, dealer_hand)
-  reset_aces!(dealer_hand, cards)
-
-  winner = 'Player' if bust?(dealer_hand, cards)
-  break if PLAYERS.include?(winner)
-end
-
-unless PLAYERS.include?(winner)
-  if count_points(cards, player_hand) > count_points(cards, dealer_hand)
-    winner = 'Player'
-  elsif count_points(cards, player_hand) < count_points(cards, dealer_hand)
-    winner = 'Dealer'
+def display_dealer_hand(deck, hand, reveal_all)
+  if reveal_all
+    prompt("The Dealer has #{joinand(hand)}.")
+    prompt("The Dealer #{count_points(deck, hand)} points.")
+    prompt('The Dealer busted.') if bust?(deck, hand)
   else
-    winner = 'No one'
+    prompt("The Dealer has #{hand.size} cards; one is #{hand.first}.")
+    prompt("The Dealer has at least #{deck[hand.first]} points.")
   end
+  puts ''
 end
 
-puts ''
-prompt("The Dealer has #{joinand(dealer_hand)}.")
-prompt("The Dealer #{count_points(cards, dealer_hand)} points.")
-prompt('The Dealer busted.') if bust?(dealer_hand, cards)
-puts ''
-prompt("You have #{joinand(player_hand)}.")
-prompt("You have #{count_points(cards, player_hand)} points.")
-prompt('You busted.') if bust?(player_hand, cards)
-puts ''
+def display_hands(deck, player, dealer, reveal_all=false)
+  system 'clear'
+  display_player_hand(deck, player)
+  display_dealer_hand(deck, dealer, reveal_all)
+end
 
-prompt("#{winner} wins!")
+loop do
+  player_wins = 0
+  dealer_wins = 0
+  champion = nil
+  answer = nil
+
+  # Game begins
+  display_rules
+
+  prompt("Press Enter to begin.")
+  prompt("You can input #{QUIT_GAME} at any time to leave the program.")
+  answer = gets.chomp
+  break if answer.downcase == QUIT_GAME
+
+  loop do
+    # Reset card values & shuffle the deck
+    cards = initialize_deck
+    shuffled_cards = cards.keys.shuffle
+
+    player_hand = []
+    dealer_hand = []
+    winner = ''
+
+    initialize_hands(shuffled_cards, player_hand, dealer_hand)
+
+    display_hands(cards, player_hand, dealer_hand)
+
+    # Player's turn
+    loop do
+      prompt("Hit or stay?")
+      answer = player_hit_or_stay
+      break if answer == 'stay' || answer == QUIT_GAME
+
+      deal!(shuffled_cards, player_hand)
+      reset_aces!(cards, player_hand)
+
+      winner = 'Dealer' if bust?(cards, player_hand)
+      break if PLAYERS.include?(winner)
+
+      display_hands(cards, player_hand, dealer_hand)
+    end
+
+    break if answer == QUIT_GAME
+
+    # Dealer's turn
+    loop do
+      break if PLAYERS.include?(winner) ||
+               count_points(cards, dealer_hand) >= DEALER_THRESHOLD
+      deal!(shuffled_cards, dealer_hand)
+      reset_aces!(cards, dealer_hand)
+
+      winner = 'Player' if bust?(cards, dealer_hand)
+      break if PLAYERS.include?(winner)
+    end
+
+    # Decide winner if no one has busted.
+    unless PLAYERS.include?(winner)
+      if count_points(cards, player_hand) > count_points(cards, dealer_hand)
+        winner = 'Player'
+      elsif count_points(cards, player_hand) < count_points(cards, dealer_hand)
+        winner = 'Dealer'
+      else
+        winner = 'No one'
+      end
+    end
+
+    display_hands(cards, player_hand, dealer_hand, true)
+
+    prompt("#{winner} wins!")
+
+    player_wins += 1 if winner == 'Player'
+    dealer_wins += 1 if winner == 'Dealer'
+
+    prompt("You have #{player_wins} wins. The Dealer has #{dealer_wins} wins.")
+    champion = 'You' if player_wins >= CHAMP_THRESHOLD
+    champion = 'The Dealer' if dealer_wins >= CHAMP_THRESHOLD
+    break if champion
+
+    prompt('Continue? (y or n)')
+    answer = gets.chomp.downcase
+    break unless answer.start_with?('y')
+  end
+
+  break if answer == QUIT_GAME
+
+  prompt("The Champion is: #{champion}!") if champion
+
+  prompt('Play again? (y or n)')
+  answer = gets.chomp.downcase
+  break unless answer.start_with?('y')
+end
+
+prompt("Thanks for playing #{WINNING_THRESHOLD}! Good-bye.")
