@@ -69,7 +69,7 @@ def player_hit_or_stay
   end
 end
 
-def initialize_hands(deck, player, dealer)
+def initialize_hands!(deck, player, dealer)
   2.times { deal!(deck, player) }
   2.times { deal!(deck, dealer) }
 end
@@ -141,7 +141,7 @@ loop do
     dealer_hand = []
     winner = ''
 
-    initialize_hands(shuffled_cards, player_hand, dealer_hand)
+    initialize_hands!(shuffled_cards, player_hand, dealer_hand)
 
     display_hands(cards, player_hand, dealer_hand)
 
