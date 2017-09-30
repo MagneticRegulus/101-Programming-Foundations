@@ -44,12 +44,10 @@ def initialize_deck
 end
 
 def join_cards(hand, punc=', ', conj='and')
-  if hand.size <= 1
-    display_card(hand.first)
-  elsif hand.size == 2
+  if hand.size == 2
     hand.map { |card| display_card(card) }.join(" #{conj} ")
   else
-    hand[0..-2].map { |card| display_card(card) }.join(punc).to_s \
+    hand[0..-2].map { |card| display_card(card) }.join(punc) +
       "#{punc + conj} #{display_card(hand.last)}"
   end
 end
