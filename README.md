@@ -16,38 +16,28 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 6. Walk-through: Calculator - prior to 18/06/2017
 7. Pseudo-Code - prior to 18/06/2017
 8. Flowchart - prior to 18/06/2017
-
 9. Rubocop - 18/06/2017
-10.	Walk-through: Refactoring Calculator - 18/06/2017
-11.	Rubocop Calculator - 18/06/2017
-12.	Debugging - 18/06/2017
-
-13.	Assignment: Calculator Bonus Features - 21/06/2017
-
-14.	Assignment: Mortgage / Car Loan Calculator - 24/06/2017
-
-15.	Coding Tips - 28/06/2017
-16.	Variable Scope - 28/06/2017
-
-17.	More Variable Scope - 02/07/2017
-18.	Pass by Reference vs Pass by Value - 02/07/2017
-
-19.	Walk-through: Rock Paper Scissors - 05/07/2017
-20.	Rubocop Rock Paper Scissors - 05/07/2017
-21.	Coding Tips 2 - 05/07/2017
-
-22.	Assignment: RPS Bonus Features - 08/07/2017
-23.	Summary - 08/07/2017
-
-24.	Quiz - 09/07/2017
+10. Walk-through: Refactoring Calculator - 18/06/2017
+11. Rubocop Calculator - 18/06/2017
+12. Debugging - 18/06/2017
+13. Assignment: Calculator Bonus Features - 21/06/2017
+14. Assignment: Mortgage / Car Loan Calculator - 24/06/2017
+15. Coding Tips - 28/06/2017
+16. Variable Scope - 28/06/2017
+17. More Variable Scope - 02/07/2017
+18. Pass by Reference vs Pass by Value - 02/07/2017
+19. Walk-through: Rock Paper Scissors - 05/07/2017
+20. Rubocop Rock Paper Scissors - 05/07/2017
+21. Coding Tips 2 - 05/07/2017
+22. Assignment: RPS Bonus Features - 08/07/2017
+23. Summary - 08/07/2017
+24. Quiz - 09/07/2017
 
 ### Lesson 3: Practice Problems
 
 1. Introduction - 10/07/2017
-
 2. Practice Problems: Easy 1 - 12/07/2017
 3. Practice Problems: Easy 2 - 12/07/2017
-
 4. Practice Problems: Medium 1 - 19/07/2017
 5. Practice Problems: Medium 2 - 19/07/2017
 6. Practice Problems: Hard 1 - 19/07/2017
@@ -77,7 +67,7 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 6. Summary - 10/09/2017
 7. Quiz - 14/09/2017
 
-### Lesson 6: Not started
+### Lesson 6
 
 1. Introduction - 16/09/2017
 2. Updated Rubocop configuration - 16/09/2017
@@ -89,7 +79,7 @@ Repository for all Launch School 101 lesson notes, assignments, and practice cod
 8. Possible Solution: Twenty-One - 24/09/2017
 9. Rubocop Twenty-One - 24/09/2017
 10. Assignment: Twenty-One Bonus Features - 24/09/2017
-11. Start a Blog
-12. Summary
-13. Quiz
-14. Course Feedback
+11. Start a Blog - 27/09/2017
+12. Summary - 30/09/2017
+13. Quiz - 30/09/2017
+14. Course Feedback - 30/09/2017

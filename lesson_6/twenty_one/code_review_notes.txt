@@ -1,0 +1,45 @@
+General Operation/Gameplay
+---------------------------
+* 1. Put 'exit' in quotes in the game rules.
+* 2. Consider shorter input for 'hit' and 'stay' ('h' & 's')
+* 3. Display running total of wins...thought I had done this???
+  (maybe display it more often?)
+* 4. The Dealer has at least 'revealed val' + 2
+
+Code
+-----
+* 1. Consider changing the 'cards' structure to be more like:
+
+  cards = [
+    {suit: 'hearts', card: '2', value: 2},
+    {suit: 'hearts', card: '3', value: 3},
+    {suit: 'hearts', card: '4', value: 4},
+    ...
+  ]
+
+* 2. Logic for displaying a string could be its own method:
+
+  def display_card(card)
+    "the #{card[:card]} of #{card[:suit]}"
+  end
+
+* 3. `shuffle!` could then be used on the card array as a whole.
+* 4. DECK structure is repetitive. Could have separate SUITS and CARDS arrays.
+* 5. Use only strings (use the same data type).
+
+Methods
+--------
+* 1. `bust` comparison already returns a boolean, don't need ternary
+* 2. The system 'clear' line can include a Windows version of the command:
+
+  system('clear') || system('cls')
+
+* 3. Could extract the above to its own method `clear_screen`
+* 4. Remove repitition in the `player_hit_or_stay` method by doing something like:
+
+  ['hit', 'stay', QUIT_GAME].include?(answer)
+
+Game Loop
+----------
+Logic is sound but quite long. Extract some logic to methods like:
+  player_turn, dealer_turn, decide_winner
