@@ -1435,3 +1435,43 @@ Some important points to remember:
 Being able to manipulate a collection of data is very often a necessary component of a solution to an overall coding problem. 
 
 ----------
+
+Lesson 6: Slightly Larger Problems
+---------------------------------------------------
+
+### 6.1 Introduction
+
+Suggested approach:
+
+ 1. Break down the problem into smaller pieces. You might not get it right on the first try. Don't be afraid to start over.
+ 2. Map out the flow of the program in a flowchart. Use sub-processes to capture well-defined components of the problem.
+ 3. Write out the pseudo-code for each sub-process one at a time. It will likely translate to one or more methods; have clear inputs and clear expected outputs you expect from the sub-process.
+ 4. Play around with the code. Write out each line and don't copy/paste.
+ 5. Do the assignments in sequence.
+ 6. Watch the walk-through videos, bu don't just sit back - code along with them.
+
+### 6.12 Summary
+
+You should have learned to:
+
+ - build slightly more complex programs
+ - be able to map out logic and flow for a more complex program
+ - learn to hold code and app logic in your head
+ - isolate code into reasonable "chunks" and extract to methods
+ - write methods that have 1 responsibility and are easy to use
+ - be intimately familiar with variable scoping rules
+ - be able to determine when an object has been mutated by a method
+ - debug a complex program
+ - feel more comfortable with pure Ruby
+ - feel more comfortable tearing down complex problems
+ - search for answers online
+ - experiment in irb or a code editor
+
+You should have experienced some frustrations:
+
+ - one little change caused a ripple effect
+ - hard to load an entire program in your head
+ - adding features can sometimes require major surgery in the entire program
+ - lack of guidelines to organise or break down the program into appropriate chunks
+
+The next step is OOP - Object Oriented Programming. OOP will help alleviate some frustrations but also introduces new concepts and complexity. It's a different way to think about programming. 
