@@ -7,7 +7,6 @@ VALUES = {
   '9' => 9, '10' => 10, 'jack' => 10, 'queen' => 10, 'king' => 10, 'ace' => 11
 }
 
-PLAYERS = ['Player', 'Dealer']
 WINNING_THRESHOLD = 21
 DEALER_THRESHOLD = 17
 CHAMP_THRESHOLD = 5
